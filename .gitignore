@@ -1,4 +1,8 @@
-mavproxy
+# The root launcher, anchored, with the package directory re-included after
+# it: ignore matching is case-insensitive on Windows and macOS, so /mavproxy
+# also matches MAVProxy/ and would hide the whole package tree from git.
+/mavproxy
+!/MAVProxy/
 *~
 *.o
 *.pyc

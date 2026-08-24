@@ -1,0 +1,10 @@
+# Runtime deps for the board venv. This is the whole set: MAVProxy itself is
+# installed from this clone with --no-deps (see packaging/bootstrap.sh), so
+# anything the relay needs at runtime has to be named here.
+#
+# The tpcm module is not a separate package. It ships inside MAVProxy, in
+# MAVProxy/modules/mavproxy_tpcm/ on this same branch, and installs when
+# bootstrap.sh pip-installs the clone. There is nothing to add here for it.
+pymavlink>=2.4.14
+pyserial>=3.0
+PyYAML>=6.0

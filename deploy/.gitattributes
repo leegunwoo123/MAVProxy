@@ -1,0 +1,11 @@
+# The board runs these; a CRLF shebang line or `then\r` fails on Linux with an
+# error that names no file. Scoped to this directory rather than set in the
+# repository root, so it cannot change how the rest of MAVProxy is checked out.
+* text=auto
+*.sh text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.scr text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+*.service text eol=lf

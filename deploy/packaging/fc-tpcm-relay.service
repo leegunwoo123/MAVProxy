@@ -1,0 +1,23 @@
+[Unit]
+Description=FC/TPCM MAVLink TCP Relay (MAVProxy + tpcm)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=debian
+Group=dialout
+WorkingDirectory=/home/debian/fc-tpcm-relay
+Environment=TPCM_CONFIG=/home/debian/fc-tpcm-relay/deploy/config/tpcm.yaml
+# --master and --baudrate must match fc: in deploy/config/tpcm.yaml. Do not add
+# --out=tcpin here: it would bind port 6000 first and tcp.session would never
+# apply. The GCS listener is opened by the tpcm module, so no module means no
+# port 6000.
+ExecStart=/home/debian/fc-tpcm-venv/bin/mavproxy.py --master=/dev/ttyS1 --baudrate=57600 --mav20 --default-modules=tpcm --non-interactive --state-basedir=/home/debian/fc-tpcm-relay/deploy/state
+Restart=always
+RestartSec=2
+StartLimitIntervalSec=0
+# Do not use --daemon. Type=simple needs a foreground process.
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,50 @@
+# Reference copy with the comments. The file the service actually reads is
+# config/tpcm.yaml, which is tracked in git because every board runs the same
+# settings -- change it on the branch and pull, do not edit it on a board.
+# For an interactive run outside systemd, drop a copy at ~/.mavproxy/tpcm.yaml.
+# The file log records events only, not every ASCII line or encoded frame.
+
+tpcm:
+  # BBB UART4 is /dev/ttyS4; a USB-UART shows up as /dev/ttyUSB0. Prefer a udev
+  # symlink such as /dev/tpcm_uart so a re-enumeration cannot swap the ports.
+  device: /dev/ttyS4
+  baud_rate: 115200
+  max_line_bytes: 256
+  receive_timeout_ms: 3000
+  target_publish_hz: 1
+  downsample: true
+
+tcp:
+  bind: 0.0.0.0
+  port: 6000
+  # first: the connected GCS keeps the session (pymavlink default).
+  # latest: a reconnecting GCS takes it over once it sends MAVLink.
+  # Ignored if mavproxy was started with --out=tcpin on the same address.
+  session: latest
+
+fc:
+  # Opened as a MAVProxy master link unless --master already names it.
+  device: /dev/ttyS1
+  baud_rate: 57600
+
+mavlink:
+  system_id: 1
+  # 1 is forbidden: that is the autopilot. 158 keeps TPCM_STATUS on its own
+  # identity so GCS link-quality accounting stays intact.
+  component_id: 158
+  signing_enabled: false
+
+logging:
+  # Relative to the MAVProxy log directory (--state-basedir), or absolute.
+  dir: logs
+  error_file: tpcm_error.log
+  max_bytes: 2097152
+  backup_count: 3
+  rate_limit_sec: 10
+
+statustext:
+  # STATUSTEXT(253) to the GCS. The operator reads and hears these, so they are
+  # throttled harder than the log and carry no raw frame bytes.
+  enabled: true
+  throttle_sec: 60
+  parse_report_sec: 60

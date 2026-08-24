@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<mavlink>
+  <include>common.xml</include>
+  <enums>
+    <enum name="TPCM_POWER_SOURCE">
+      <entry value="0" name="TPCM_POWER_SOURCE_CONVERT">
+        <description>Converter supplying system power normally</description>
+      </entry>
+      <entry value="1" name="TPCM_POWER_SOURCE_BATTERY">
+        <description>Battery supplying system power</description>
+      </entry>
+      <entry value="2" name="TPCM_POWER_SOURCE_PARALLEL_FAULT">
+        <description>Converter and battery supplying power in parallel after a fault</description>
+      </entry>
+      <entry value="3" name="TPCM_POWER_SOURCE_PARALLEL_RECOVERED">
+        <description>Converter and battery supplying power in parallel after DC recovery</description>
+      </entry>
+    </enum>
+  </enums>
+  <messages>
+    <message id="5600" name="TPCM_STATUS">
+      <description>Tethered Power Control Manager status</description>
+      <field type="uint64_t" name="time_usec" units="us">MC reception time as Unix epoch in microseconds</field>
+      <field type="float" name="ac_input_voltage_1" units="V">AC input voltage 1 in volts</field>
+      <field type="float" name="ac_input_voltage_2" units="V">AC input voltage 2 in volts</field>
+      <field type="float" name="ac_input_voltage_3" units="V">AC input voltage 3 in volts</field>
+      <field type="float" name="dc_output_voltage_1" units="V">DC output voltage 1 in volts</field>
+      <field type="float" name="dc_output_voltage_2" units="V">DC output voltage 2 in volts</field>
+      <field type="float" name="dc_output_voltage_3" units="V">DC output voltage 3 in volts</field>
+      <field type="float" name="dc_output_current_1" units="A">DC output current 1 in amperes</field>
+      <field type="float" name="dc_output_current_2" units="A">DC output current 2 in amperes</field>
+      <field type="float" name="dc_output_current_3" units="A">DC output current 3 in amperes</field>
+      <field type="float" name="temperature" units="degC">TPCM internal temperature in degrees Celsius</field>
+      <field type="float" name="battery_voltage" units="V">Battery voltage in volts</field>
+      <field type="uint8_t" name="power_source" enum="TPCM_POWER_SOURCE">TPCM power source state</field>
+    </message>
+  </messages>
+</mavlink>

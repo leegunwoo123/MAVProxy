@@ -1,0 +1,44 @@
+# Every board runs this file. It is tracked in git, so edit it here, commit,
+# and pull on the boards -- editing it on a board makes the next git pull
+# conflict and puts that board on settings no commit describes.
+# config/tpcm.example.yaml is the same file with the options explained.
+#
+# tpcm.device and fc.device must match the board's wiring, and fc.device and
+# fc.baud_rate must agree with --master and --baudrate in
+# packaging/fc-tpcm-relay.service.
+
+tpcm:
+  device: /dev/ttyS4
+  baud_rate: 115200
+  max_line_bytes: 256
+  receive_timeout_ms: 3000
+  target_publish_hz: 1
+  downsample: true
+
+tcp:
+  bind: 0.0.0.0
+  port: 6000
+  # first: the connected GCS keeps the session (pymavlink default).
+  # latest: a reconnecting GCS takes it over once it sends MAVLink.
+  session: latest
+
+fc:
+  device: /dev/ttyS1
+  baud_rate: 57600
+
+mavlink:
+  system_id: 1
+  component_id: 158
+  signing_enabled: false
+
+logging:
+  dir: logs
+  error_file: tpcm_error.log
+  max_bytes: 2097152
+  backup_count: 3
+  rate_limit_sec: 10
+
+statustext:
+  enabled: true
+  throttle_sec: 60
+  parse_report_sec: 60

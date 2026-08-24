@@ -1,0 +1,8 @@
+# Minimal MAVProxy script: load only tpcm (when the module is installed).
+# Body forward (FC<->GCS) remains active regardless of this file.
+#
+# The systemd unit does not use this: it passes --default-modules=tpcm. This is
+# for an interactive run on the board, where MAVProxy reads no script by path.
+# Copy it to ~/.mavproxy/mavinit.scr, which MAVProxy loads on startup, or pass
+# the same thing on the command line: --cmd="module load tpcm"
+module load tpcm

@@ -1,0 +1,3 @@
+# MAVProxy --state-basedir: telemetry logs and the module's own event log.
+state/
+logs/
